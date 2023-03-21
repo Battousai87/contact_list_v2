@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.IO;
+using System.Net.Sockets;
 
 namespace dtp7_contact_list
 {
@@ -86,7 +87,16 @@ namespace dtp7_contact_list
                     if (commandLine.Length == 1)
                     {
                         lastFileName = GetUserDirectory("address.lis");
-                        LoadContactListFromFile(lastFileName);
+                        
+                        try
+                        {
+                            LoadContactListFromFile(lastFileName);
+                        }
+                        catch (System.IO.FileNotFoundException)
+                        {
+                            Console.WriteLine($"File {lastFileName} does not exist!");
+                            
+                        }
                     }
                     else if (commandLine.Length == 2)
                     {
